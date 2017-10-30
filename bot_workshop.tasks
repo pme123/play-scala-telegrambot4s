@@ -1,0 +1,57 @@
+ ☐ Intro
+   ☐ Advantages
+     > clients for Windows / Mac / Web / Android / iOS and more
+     > messaging infrastructure
+     > simple and well known interface
+   ☐ Good to know
+     > each instance needs its own bot
+     > no standards
+   ☐ Possibilities
+     > help and support wizards
+     > history for support (conversation)
+     > send alerts
+     > tailor and simplify customer’s process
+     > interact with automated processes
+     > new ways of interacting with customers
+     > monitoring (send status)
+ ☐ Setup
+   ☐ Create an account
+     > https://telegram.org
+   ☐ Get an App-ID
+     > Ask the BotFather > /newBot
+     > Name of Bot should end with Bot
+     > This creates the needed App-ID 
+   ☐ Create a Project
+     > Scala or Java with a Webservice Client library
+     > e.g. >sbt new playframework/play-scala-seed.g8
+   ☐ Important informations
+     > Bot API: https://core.telegram.org/bots/api
+     > Play WS Client: https://www.playframework.com/documentation/2.5.x/ScalaWS
+     > Scala Bot Framework: https://github.com/mukel/telegrambot4s
+ ☐ JSON-Client
+   ☐ Leaking bot tokens
+   ☐ Implement Functionality
+     > @Inject() (ws: WSClient)
+     > libraryDependencies += ws // if WSClient not found
+     > Create the url with App-ID
+     > call Bot's web service
+   ☐ Configure and check result
+     > edit route file
+     > run app >sbt run
+     > check result: http://localhost:9000/myBot
+ ☐ Scala-Client
+   ☐ add Dependencies
+     > https://github.com/mukel/telegrambot4s
+   ☐ Webhooks vs Polling
+   ☐ create Command
+     > with BotFather: >hello - Hello World
+   ☐ implement Hello World
+   ☐ implement Echo
+   ☐ Using callbacks
+ ☐ Next...
+   > Conversation
+   > Game
+   > Run the Bot on a Webserver with Play
+ 
+
+ 

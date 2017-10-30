@@ -7,3 +7,5 @@ target
 /.project
 /.settings
 /RUNNING_PID
+/conf/bot.token
+project/project/

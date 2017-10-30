@@ -7,6 +7,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.12.3"
 
+libraryDependencies += ws
 libraryDependencies += guice
 libraryDependencies += "info.mukel" %% "telegrambot4s" % "3.0.14"
 
