@@ -20,7 +20,8 @@ class HomeController @Inject()(cc: ControllerComponents
   extends AbstractController(cc) {
 
   lazy val url = s"https://api.telegram.org/bot$botToken/getMe"
-
+  private val log = Logger(getClass)
+  log.info("initialized HomeController")
   /**
    * Create an Action to render an HTML page.
    *
@@ -29,6 +30,7 @@ class HomeController @Inject()(cc: ControllerComponents
    * a path of `/`.
    */
   def index() = Action.async { implicit request: Request[AnyContent] =>
+    log.info("call HomeController")
     ws.url(url)
       .get()
       .map(_.json)

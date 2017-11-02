@@ -8,4 +8,6 @@ package object bots {
     .envOrNone("BOT_TOKEN")
     .getOrElse(Source.fromResource("bot.token").getLines().mkString)
 
+  val callback = "callback"
+
 }
