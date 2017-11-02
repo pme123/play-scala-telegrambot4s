@@ -29,12 +29,9 @@ class CommandDispatcher
 
   def receive: PartialFunction[Any, Unit] = {
     case subscr: Subscription =>
-      info(s"received Subscription: for Command: ${subscr.command} - " +
-        subscr.subscrType.label)
+      info(s"received Subscription: for Command: ${subscr.command} - ${subscr.subscrType.label}")
       subscriptions.put(subscr.command, subscr)
     case Command(msg: Message, callbackData) =>
-      info("Command: " + msg.text + s"- $callbackData - " + msg.chat.id)
-
       msg.text.flatMap(subscriptions.get) match {
         case Some(subscription) => // check if it is a control
           subscription.subscrType match {
@@ -51,8 +48,6 @@ class CommandDispatcher
           }
 
         case None => // else get the active control for that Chat
-          info("none control: " + conversations.get(msg.chat.id))
-
           conversations.get(msg.chat.id) match {
             case Some((_, actorRef)) => actorRef ! Command(msg, callbackData)
             case None => request(SendMessage(msg.source, initChat))

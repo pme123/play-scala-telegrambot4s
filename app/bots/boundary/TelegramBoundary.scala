@@ -47,11 +47,11 @@ class TelegramBoundary @Inject()(@Named("commandDispatcher") val commandDispatch
     }
   }
 
-  private lazy val acceptUsers: List[Int] = config.get[String]("bots.accept.users").split(",").toList.map(_.toInt)
+  private lazy val acceptUsers: List[Int] = config.get[String]("bots.accept.users").split(",").toList.filter(_.trim.nonEmpty).map(_.toInt)
 
   private def checkUser(msg: Message): Option[User] = {
     val user = msg.from.get
-    val acceptsUser = acceptUsers.contains(user.id)
+    val acceptsUser = acceptUsers.isEmpty || acceptUsers.contains(user.id)
     if (acceptsUser)
       Some(user)
     else {

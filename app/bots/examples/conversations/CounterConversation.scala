@@ -4,7 +4,7 @@ import javax.inject.{Inject, Named, Singleton}
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import bots.control.ChatConversation
-import bots.entity.SubscrType.{SubscrConversation, SubscrService}
+import bots.entity.SubscrType.SubscrConversation
 import bots.entity.{Command, FSMState, Subscription}
 import info.mukel.telegrambot4s.api.Extractors
 import info.mukel.telegrambot4s.methods.EditMessageReplyMarkup
@@ -12,7 +12,7 @@ import info.mukel.telegrambot4s.models.{ChatId, InlineKeyboardButton, InlineKeyb
 
 // @formatter:off
 /**
-  * counts the number user pushes the button
+  * counts the number user pushes the button and the number of requests
   *
   *     [Idle]
   *       v
