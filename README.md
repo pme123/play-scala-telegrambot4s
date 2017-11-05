@@ -1,4 +1,4 @@
-# play-scala-telegrambot4s
+# Telegram Bot Demo with Scala/ Play
 
 This page was originally created for a [JUGs workshop](https://www.jug.ch/html/events/2017/chatbot_programmieren.html).
 
@@ -79,6 +79,8 @@ class HomeController @Inject()(cc: ControllerComponents
 
 That's it - let's move now to the [Scala API](https://github.com/mukel/telegrambot4s). For the next Bot examples we don't need the Play server - so you can shut it down.
 
+(you need to update the HomeControllerSpec - or if you are lazy remove it)
+
 # Webhooks vs Polling
 Before we start let's explain shortly the difference between Webhooks and Polling. This is the quote from the [Scala API](https://github.com/mukel/telegrambot4s):
 > Both methods are fully supported. Polling is the easiest method; it can be used locally without any additional requirements. It has been radically improved, doesn't flood the server (like other libraries do) and it's pretty fast.
@@ -118,3 +120,75 @@ hello - Simple Hello World.
 * Now lets say hello to your Bot (the command should be available, when hitting `/` in the text-field).
 
 # Counter Bot
+(Here the [Solution Branch](https://github.com/pme123/play-scala-telegrambot4s/tree/add-callback-bot) if you have problems)
+## Callbacks
+The first step to implement a conversation with a user is to understand the concept of `callbacks`.
+To guide the user through a conversation you can provide a [keyboard](https://core.telegram.org/bots#keyboards).
+These keys (buttons) are identified with a callback identifier.
+
+Create a Scala class `CounterBot` in the `bots` package (you can copy the `HelloBot`:
+
+* We will listen for the Command `/counter` to start the process:
+```
+  onCommand("/counter") { implicit msg =>
+    reply("Press to increment!", replyMarkup = Some(markupCounter(0)))
+  }
+```
+* The logic for the counting and the creation of the button:
+```
+  private def markupCounter(n: Int): InlineKeyboardMarkup = {
+    requestCount += 1
+    InlineKeyboardMarkup.singleButton( // set a layout for the Button
+      InlineKeyboardButton.callbackData( // create the button into the layout
+        s"Press me!!!\n$n - $requestCount", // text to show on the button (count of the times hitting the button and total request count)
+        tag(n.toString))) // create a callback identifier
+  }
+```
+* The callback identifier is composed by a static tag and the actual count:
+```
+  private val TAG = "COUNTER_TAG"
+  private def tag: String => String = prefixTag(TAG)
+```
+* When the user hits the button we can listen for it:
+```
+  onCallbackWithTag(TAG) { implicit cbq => // listens on all callbacks that START with TAG
+    // Notification only shown to the user who pressed the button.
+    ackCallback(Some(cbq.from.firstName + " pressed the button!"))
+    // Or just ackCallback() - this is needed by Telegram!
+
+    for {
+      data <- cbq.data //the data is the callback identifier without the TAG (the count in our case)
+      Extractors.Int(n) = data // extract the optional String to an Int
+      msg <- cbq.message
+    } /* do */ {
+      request(
+        EditMessageReplyMarkup( // to update the existing button - (not creating a new button)
+          Some(ChatId(msg.source)), // msg.chat.id
+          Some(msg.messageId),
+          replyMarkup = Some(markupCounter(n + 1))))
+    }
+  }
+```
+* Like before we need a runner app:
+```
+object CounterBotApp extends App {
+  CounterBot.run()
+}
+```
+* we want to reuse our bot, so we only overwrite the command to `counter - Counts the time a User hits the button.`like above.
+  As the commands are set always in one step it makes sense to manage them in file. Create 'bot-commands.txt` file and add:
+```
+  hello - Simple Hello World.
+  counter - Counts the time a User hits the button.
+```
+* Run the `CounterBotApp` and select the command `/counter`
+* Hit the button and create new buttons width `/counter`
+
+# Next steps (Next workshop;)
+This was the basic workshop. Now we want to do complexer conversations. To get to this next level we need quite some ingredients:
+
+* Handle the state of each user.
+* Create a FSM (finite state machine) to design the conversation.
+* A running App that easily integrates everything - and in a later state provides the webhooks.
+
+Here starts the setup with Play to make more sense. As we use and integrate the FSM provided with Akka.
