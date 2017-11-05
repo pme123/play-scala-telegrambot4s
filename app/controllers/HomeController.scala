@@ -30,9 +30,9 @@ class HomeController @Inject()(cc: ControllerComponents
    */
   def index() = Action.async { implicit request: Request[AnyContent] =>
     ws.url(url)
-      .get()
-      .map(_.json)
+      .get() // as this returns a Future the function is now async
+      .map(_.json) // the the body as json
       .map(_.toString())
-      .map(str => Ok(views.html.index(str)))
+      .map(str => Ok(views.html.index(str))) // forward the result to the index page
   }
 }
