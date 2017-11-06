@@ -9,9 +9,11 @@ scalaVersion := "2.12.3"
 
 libraryDependencies += ws
 libraryDependencies += guice
-libraryDependencies += "info.mukel" %% "telegrambot4s" % "3.0.14"
+libraryDependencies += "com.github.pme123" % "play-akka-telegrambot4s" % "0.0.2"
 
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+
+resolvers += "jitpack" at "https://jitpack.io"
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "pme.controllers._"

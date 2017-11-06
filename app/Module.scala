@@ -1,7 +1,7 @@
-import bots.boundary.BotRunner
-import bots.control.{CommandDispatcher, LogStateSubscription}
-import bots.examples.conversations.CounterServiceSubscription
-import bots.examples.services.HelloServiceSubscription
+import pme.bots.boundary.BotRunner
+import pme.bots.control.{CommandDispatcher, LogStateSubscription}
+import pme.bots.examples.conversations.CounterServiceSubscription
+import pme.bots.examples.services.HelloServiceSubscription
 import com.google.inject.AbstractModule
 import play.api.Logger
 import play.api.libs.concurrent.AkkaGuiceSupport

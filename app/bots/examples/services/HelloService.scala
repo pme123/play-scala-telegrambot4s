@@ -3,9 +3,9 @@ package bots.examples.services
 import javax.inject.{Inject, Named, Singleton}
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import bots.control.ChatService
-import bots.entity.SubscrType.SubscrService
-import bots.entity.{Command, Subscription}
+import pme.bots.control.ChatService
+import pme.bots.entity.SubscrType.SubscrService
+import pme.bots.entity.{Command, Subscription}
 
 /**
   * says hello to the user

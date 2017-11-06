@@ -3,9 +3,9 @@ package bots.examples.conversations
 import javax.inject.{Inject, Named, Singleton}
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import bots.control.ChatConversation
-import bots.entity.SubscrType.SubscrConversation
-import bots.entity.{Command, FSMState, Subscription}
+import pme.bots.control.ChatConversation
+import pme.bots.entity.SubscrType.SubscrConversation
+import pme.bots.entity.{Command, FSMState, Subscription}
 import info.mukel.telegrambot4s.api.Extractors
 import info.mukel.telegrambot4s.methods.EditMessageReplyMarkup
 import info.mukel.telegrambot4s.models.{ChatId, InlineKeyboardButton, InlineKeyboardMarkup}
