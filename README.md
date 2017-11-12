@@ -192,3 +192,6 @@ This was the basic workshop. Now we want to do complexer conversations. To get t
 * A running App that easily integrates everything - and in a later state provides the webhooks.
 
 Here starts the setup with Play to make more sense. As we use and integrate the FSM provided with Akka.
+
+I created another project for an example: 
+[play-akka-telegrambot4s-incidents](https://github.com/pme123/play-akka-telegrambot4s-incidents)
