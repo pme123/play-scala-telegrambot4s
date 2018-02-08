@@ -21,7 +21,7 @@ object CounterBot
     InlineKeyboardMarkup.singleButton( // set a layout for the Button
       InlineKeyboardButton.callbackData( // create the button into the layout
         s"Press me!!!\n$n - $requestCount", // text to show on the button (count of the times hitting the button and total request count)
-        tag(n.toString))) // create a callback identifier
+        TAG + n)) // create a callback identifier
   }
 
   private def tag: String => String = prefixTag(TAG)
